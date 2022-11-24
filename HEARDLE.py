@@ -17,7 +17,7 @@ grey = '#BEBDB8'
 green = '#00FF00'
 red = '#FF0000'
 
-gameovermessage = ['Unlucky!', 'Nice try!', 'Michael moment.', 'Good effort!', 'Better luck next time!', 'You can do better!', 'That\'s barely a pass.', 'Almost there!', 'Nice!', 'Almost perfect!', 'Perfect!']
+gameovermessage = ['Unlucky tbh💀x7', 'Nice try!', 'Michael moment.', 'Good effort!', 'Better luck next time!', 'You can do better!', 'That\'s barely a pass.', 'Almost there!', 'Nice!', 'Almost perfect!', 'Perfect!']
 
 songs = [
 ['bert.wav', 'bertyyyyyyyyyyyyyyy', 'charles', 'ryan', 'miggle', green, red, red, red, 7],
