@@ -17,13 +17,21 @@ grey = '#BEBDB8'
 green = '#00FF00'
 red = '#FF0000'
 
-gameovermessage = ['unlucky tbh💀x7', 'nt brotha go next', 'michael moment(alliteration)', 'nt.', '💀',  # list of game over messages
+gameovermessage = ['unlucky tbh💀x7', 'nt brotha go next', 'michael moment', 'nt.', '💀',  # list of game over messages
  'passing grade', 'barely a pass💀', 'michael on derivatives', 'nt close game', 'sheeah', 'sheesh']
 
     # list of songs, text for each button (4), colours of each button when clicked (4), and the duration of the song
 songs = [
-    ['bert.wav', 'bertyyyyyyyyyyyyyyy', 'charles', 'ryan', 'miggle', green, red, red, red, 7],
-    ['bert.wav', 'fishy', 'shesh', 'ri call ryna', 'migga', red, red, green, red, 7]
+    ['newgenesis.wav', 'New Genesis - Ado', 'Backlight - Ado', 'A Cruel Angel\'s Thesis - Yoko Takahashi', 'REALIZE - Konomi Suzuki', green, red, red, red, 10],
+    ['tunaktunak.wav', 'Beware Of The Boys - Panjabi MC', 'Bahubali OST', 'Light Up Skechers - DripReport', 'Pumped Up Kicks - Tongo', green, red, red, red, 10],
+    ['guailo.wav', 'Guai Lo - Tri Oriental Brega', 'Yi Jian Mei - Fei Yu Ching', 'Butter - BTS', 'Fortunate Son - Creedence Clearwater Revival', green, red, red, red, 19],
+    ['moveit.wav', 'I Like To Move It - King Julian', 'My Neck, My Back - Khia', 'Big and Chunky - will i am', 'Dynamite - BTS', green, red, red, red, 14],
+    ['centimeter.wav', 'Centimeter - the peggies', 'Butter - BTS', 'Kimi no Sei - the peggies', 'Dynamite - BTS', green, red, red, red, 8],
+    ['sinatraa.wav', 'Bubbly - Jay "Sinatraa" Won', 'Bahubali OST', 'Bad Piggies Drip - Sardine Slayer', 'Pumped Up Kicks - Tongo', green, red, red, red, 10],
+    ['yoasobi.wav', 'Yoru Ni Kakeru - YOASOBI', 'Butter - BTS', 'LOCO - ITZY', 'FANCY - Twice', green, red, red, red, 16],
+    ['butter.wav', 'Butter - BTS', 'Margarine - BTS', 'I Can\'t Believe It\'s Not Butter - BTS', 'Avocado Oil - BTS', green, red, red, red, 13],
+    ['corpse.wav', 'E-GIRLS ARE RUINING MY LIFE! - Corpse', 'Corpse Roleplay - Robert Yan', 'I Found Among Us - DVRST', 'Butter - BTS', green, red, red, red, 8],
+    ['polishcow.wav', 'Gdzie jest biały węgorz - Cypis', 'Polish Cow', 'Butter - BTS', 'Shake - Speed', green, red, red, red, 12]
 ]
 
 songorder = random.sample(range(len(songs)), len(songs))    # generates random order for the songs
@@ -71,7 +79,7 @@ def gameover(): # function for when the game ends
     quatro.destroy()
     gameovertext = Label(window, text = gameovermessage[int(points.get())], font = ('Times New Roman', 40), bg = black, fg = grey)  # display the game over message from the list
     gameovertext.grid(column = 0, row = 4)
-    gameovertext2 = Label(window, text = 'Points:' + str(points.get()) + '/10', font = ('Times New Roman', 40), bg = black, fg = grey)  # display the points
+    gameovertext2 = Label(window, text = 'Points: ' + str(points.get()) + '/10', font = ('Times New Roman', 40), bg = black, fg = grey)  # display the points
     gameovertext2.grid(column = 0, row = 5)
 
     amogus = ImageTk.PhotoImage(Image.open('amogus.png'))   # display the amogus image
