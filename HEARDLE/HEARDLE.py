@@ -11,6 +11,7 @@ import time
 import random
 from pygame import mixer
 from PIL import ImageTk, Image
+import math
 
 black = '#121212'   # hex codes for colours
 grey = '#BEBDB8'
@@ -23,7 +24,7 @@ gameovermessage = ['unlucky tbh💀x7', 'nt brotha go next', 'michael moment', '
     # list of songs, text for each button (4), colours of each button when clicked (4), and the duration of the song
 songs = [
     ['newgenesis.wav', 'New Genesis - Ado', 'Backlight - Ado', 'A Cruel Angel\'s Thesis - Yoko Takahashi', 'REALIZE - Konomi Suzuki', green, red, red, red, 10],
-    ['tunaktunak.wav', 'Beware Of The Boys - Panjabi MC', 'Bahubali OST', 'Light Up Skechers - DripReport', 'Pumped Up Kicks - Tongo', green, red, red, red, 10],
+    ['tunaktunak.wav', 'Tunak Tunak Tun - Daler Mehndi', 'Bahubali OST', 'Light Up Skechers - DripReport', 'Pumped Up Kicks - Tongo', green, red, red, red, 10],
     ['guailo.wav', 'Guai Lo - Tri Oriental Brega', 'Yi Jian Mei - Fei Yu Ching', 'Butter - BTS', 'Fortunate Son - Creedence Clearwater Revival', green, red, red, red, 19],
     ['moveit.wav', 'I Like To Move It - King Julian', 'My Neck, My Back - Khia', 'Big and Chunky - will i am', 'Dynamite - BTS', green, red, red, red, 14],
     ['centimeter.wav', 'Centimeter - the peggies', 'Butter - BTS', 'Kimi no Sei - the peggies', 'Dynamite - BTS', green, red, red, red, 8],
@@ -44,10 +45,11 @@ def movebar(song, audiolength): # function for the progress bar
     progressbar['value'] = 0
     sound = mixer.Sound(song)   # plays the song
     mixer.Sound.play(sound)
-    increment = 100/audiolength # calculates the increment for the progress bar
+    increment = math.floor(100/audiolength) # calculates the increment for the progress bar
     for i in range(audiolength):
-        progressbar['value'] += increment   # increments the progress bar
+        progressbar['value'] += increment  # increments the progress bar
         window.update_idletasks()   # updates the progress bar
+        window.update()
         time.sleep(1)
     progressbar['value'] = 0
 
@@ -102,7 +104,7 @@ progressbar = ttk.Progressbar(window, orient = HORIZONTAL, length = 400, mode = 
 progressbar.grid(column = 0, row = 1, columnspan = 1, padx = 10, pady = 20)
 
 
-logo = Label(window, width = 10, height = 2, text = 'Heardle', font = ('Times New Roman', 40), background = black, foreground = 'white')    # Heardle text at the top
+logo = Label(window, width = 10, height = 2, text = 'Miheardle', font = ('Times New Roman', 40), background = black, foreground = 'white')    # Heardle text at the top
 logo.grid(column = 0, row = 0, columnspan = 1, padx = 120)
 
 pointcountertext = Label(window, width = 5, height = 1, text = 'Points:', font = ('Times New Roman', 20), bg = black, foreground = 'white') # points text
