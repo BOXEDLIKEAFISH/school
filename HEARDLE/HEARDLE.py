@@ -89,6 +89,9 @@ def gameover(): # function for when the game ends
     amoguslabel.image = amogus
     amoguslabel.grid(column = 0, row = 6)
 
+    sound = mixer.Sound('bert.wav') # plays the bert sound
+    mixer.Sound.play(sound)
+
 
 mixer.init()    # initialize mixer
 window = Tk()   # initialize window
