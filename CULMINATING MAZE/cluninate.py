@@ -5,19 +5,32 @@ pygame.init()   # Initialize pygame
 display = pygame.display.set_mode((1000, 1000))   # Set display size
 pygame.display.set_caption("Escape of the Flopper")   # Set display caption
 
-
 background = pygame.image.load("background.png")    # Load background image
 background = pygame.transform.scale(background, (1000, 1000))   # Scale background image
 
 wall = pygame.image.load("coral.png")    # Load wall image  
 wallrect = []
 
-
 clock = pygame.time.Clock() # Set clock
 
 levelstart = False  # Set levelstart to false
 
 level = 1   # Set level to 1
+
+class walls:
+    def __init__(self, x, y, width, rect):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.rect = rect
+
+    def draw(self, x, y):
+        wallrect = wall.get_rect(topleft = (x * wallsize, y * wallsize))
+        display.blit(wall, wallrect)
+
+
+
+
 wallsize = 0    # Set wallsize to 0
 walllist = []   # Set walllist to empty list
 start = (0, 0)  # Set start to (0, 0)
@@ -41,6 +54,8 @@ slurpfish = pygame.image.load("slurpfish.png")  # Load slurpfish image
 characterrect = 0    # Set characterrect to 0
 wallrect = 0    # Set wallrect to 0
 slurpfishrect = 0  # Set slurpfishrect to 0
+
+
 
 
 level1 = [      # map of level 1
@@ -115,9 +130,8 @@ def draw_level(level):
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == 'X':
-                wallrect = wall.get_rect(topleft = (x * wallsize, y * wallsize))
-                walllist.append(wallrect)
-                display.blit(wall, wallrect)
+                walllist.append(walls(x, y, wallsize, wall.get_rect(topleft = (x * wallsize, y * wallsize))))
+                walllist[-1].draw(x, y)
             elif level[y][x] == 'P':
                 start = (x * wallsize + wallsize/2, y * wallsize + wallsize/2)
             elif level[y][x] == 'E':
@@ -163,7 +177,7 @@ while gameon == True:
 
 
     for fish in walllist:
-        if characterrect.colliderect(fish):
+        if characterrect.colliderect(fish.rect):
             if direction == 'up':
                 y += 5
             if direction == 'left':
@@ -178,7 +192,6 @@ while gameon == True:
     if characterrect.colliderect(slurpfishrect):
         level += 1
         levelstart = False
-        walllist = []
 
     if collide == False:
         for event in pygame.event.get():
@@ -218,6 +231,6 @@ while gameon == True:
 
 
     draw_flopper(direction, (x, y))
-
+    walllist = []
 
     clock.tick(30)
