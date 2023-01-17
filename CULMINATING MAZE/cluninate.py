@@ -15,7 +15,7 @@ wall = pygame.image.load("coral.png")    # Load wall image
 clock = pygame.time.Clock() # Set clock
 
 levelstart = False  # Set levelstart to false
-level = 1   # Set level to 1
+level = 1  # Set level to 1
 
 class walls:
     def __init__(self, x, y, width, rect):
@@ -40,6 +40,9 @@ class tvs:
 
 walllist = []   # Set walllist to empty list
 tvlist = [] # Set tvlist to empty list
+tvspawns = [1, 1]
+
+tvcountperlevel = [2, 3, 3]
 
 tvcounter = 0
 
@@ -87,22 +90,22 @@ level2 = [
 ' X XXXXXXX  ',
 '   X        ',
 'XX X XXXXXX ',
-'   X     X  ',
+'   X    TX  ',
 ' XXXXXXXXX  ',
 ' X          ',
 ' X   XXXXXX ',
 ' XXX   X    ',
-' X     XE   '
+'TXT    XE   '
 ]
 
 
 
 level3 = [
-'   X   X P   X X    ',
+'T  X   X P   X X    ',
 'XX    XX     X   XX ',
 '         X X X   X  ',
 ' XXXXXXXXX X X     XX',
-' X     X   X   X X X',
+' XT    X   X   X X X',
 'XX XXX XXXXXXX X X X ',
 '   X X   X       X   ',
 ' X X XXX XXX X XXX XX',
@@ -118,7 +121,7 @@ level3 = [
 ' XXXXXXX X X XXXXXXX ',
 ' X   X     X X       ',
 ' X X XXXXXXX X XXXXX ',
-'   X      EX   X     '
+'   X      EX   XT    '
 ]
 
 
@@ -141,9 +144,11 @@ def draw_level(level):
             if level[y][x] == 'X':
                 walllist.append(walls(x, y, wallsize, wall.get_rect(topleft = (x * wallsize, y * wallsize))))
                 walllist[-1].draw(walllist[-1].rect)
-            elif level[y][x] == 'T':
+            elif level[y][x] == 'T' and tvspawns[len(tvlist)] == 1:
                 tvlist.append(tvs(x, y, wallsize, tv.get_rect(topleft = (x * wallsize, y * wallsize + 20))))
                 tvlist[-1].draw(tvlist[-1].rect)
+            elif level[y][x] == 'T':
+                tvlist.append(tvs(x, y, wallsize, tv.get_rect(topleft = (4000, 4000))))
             elif level[y][x] == 'P':
                 start = (x * wallsize + wallsize/2, y * wallsize + wallsize/2)
             elif level[y][x] == 'E':
@@ -168,6 +173,8 @@ def draw_flopper(direction, coordinates):
 
 
 while gameon == True:
+    walllist = []
+    tvlist = []
     collide = False
 
     if level == 1:
@@ -200,15 +207,23 @@ while gameon == True:
                 x -= 5
             collide = True
             break
-    
-    if characterrect.colliderect(slurpfishrect):
+
+    if characterrect.colliderect(slurpfishrect) and tvcounter == len(tvlist):
+        tvspawns = []
         level += 1
         levelstart = False
+        tvcounter = 0
+        for i in range(tvcountperlevel[level - 1]):
+            tvspawns.append(1)
+    #else:
+        #CREATE STATEMENT SAYING GET MORE TVS (ROBERT)
     
     for i in tvlist:
         if characterrect.colliderect(i.rect):
             tvcounter += 1
+            tvspawns[tvlist.index(i)] = 0
             break
+    
 
     if collide == False:
         for event in pygame.event.get():
@@ -234,21 +249,19 @@ while gameon == True:
                     d = False
 
         if w == True and y >= 1:
-            y -= 5
+            y -= 10
             direction = 'up'
         elif a == True and x >=1 :
-            x -= 5
+            x -= 10
             direction = 'left'
         elif s == True and y <= 999:
-            y += 5
+            y += 10
             direction = 'down'
         elif d == True and x <= 999:
-            x += 5
+            x += 10
             direction = 'right'
 
 
     draw_flopper(direction, (x, y))
-    walllist = []
-    tvlist = []
 
     clock.tick(30)
