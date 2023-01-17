@@ -28,10 +28,6 @@ class walls:
         wallrect = wall.get_rect(topleft = (x * wallsize, y * wallsize))
         display.blit(wall, wallrect)
 
-
-
-
-wallsize = 0    # Set wallsize to 0
 walllist = []   # Set walllist to empty list
 start = (0, 0)  # Set start to (0, 0)
 x = 0   # Set x to 0
@@ -117,8 +113,6 @@ def draw_level(level):
     global wall
     global wallsize
     global start
-    global wallrect
-    global wallist
     global slurpfishrect
     global character 
     global slurpfish
