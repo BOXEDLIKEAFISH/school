@@ -8,13 +8,13 @@ pygame.display.set_caption("Escape of the Flopper")   # Set display caption
 background = pygame.image.load("background.png")    # Load background image
 background = pygame.transform.scale(background, (1000, 1000))   # Scale background image
 
+tv = pygame.image.load("tv.png")    # Load tv image
+
 wall = pygame.image.load("coral.png")    # Load wall image  
-wallrect = []
 
 clock = pygame.time.Clock() # Set clock
 
 levelstart = False  # Set levelstart to false
-
 level = 1   # Set level to 1
 
 class walls:
@@ -24,11 +24,25 @@ class walls:
         self.width = width
         self.rect = rect
 
-    def draw(self, x, y):
-        wallrect = wall.get_rect(topleft = (x * wallsize, y * wallsize))
-        display.blit(wall, wallrect)
+    def draw(self, rect):
+        display.blit(wall, rect)
+
+class tvs:
+    def __init__(self, x, y, width, rect):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.rect = rect
+
+    def draw(self, rect):
+        display.blit(tv, rect)
+
 
 walllist = []   # Set walllist to empty list
+tvlist = [] # Set tvlist to empty list
+
+tvcounter = 0
+
 start = (0, 0)  # Set start to (0, 0)
 x = 0   # Set x to 0
 y = 0   # Set y to 0
@@ -48,14 +62,13 @@ slurpfish = pygame.image.load("slurpfish.png")  # Load slurpfish image
 
 
 characterrect = 0    # Set characterrect to 0
-wallrect = 0    # Set wallrect to 0
 slurpfishrect = 0  # Set slurpfishrect to 0
 
 
 
 
 level1 = [      # map of level 1
-' X   X XXP',   # P is the player start
+' XT  X XXP',   # P is the player start
 ' XX  X  X ',
 ' X  XX XX ',
 '          ',
@@ -64,7 +77,7 @@ level1 = [      # map of level 1
 ' X  XXX XX',
 ' XX      X',
 '  XXXX X X',
-'E X    X  '    # E is the end of the level
+'E X    X T'    # E is the end of the level
 ]
 
 level2 = [
@@ -116,16 +129,21 @@ def draw_level(level):
     global slurpfishrect
     global character 
     global slurpfish
+    global tv
     display.blit(background, (0, 0))
     wallsize = 1000/len(level)
     wall = pygame.transform.scale(wall, (wallsize, wallsize)) # Scale wall image
     character = pygame.transform.scale(character, (wallsize * 0.6, wallsize * 0.6))
     slurpfish = pygame.transform.scale(slurpfish, (wallsize * 0.7, wallsize * 0.7))
+    tv = pygame.transform.scale(tv, (wallsize, wallsize * 0.6))
     for y in range(len(level)):
         for x in range(len(level[y])):
             if level[y][x] == 'X':
                 walllist.append(walls(x, y, wallsize, wall.get_rect(topleft = (x * wallsize, y * wallsize))))
-                walllist[-1].draw(x, y)
+                walllist[-1].draw(walllist[-1].rect)
+            elif level[y][x] == 'T':
+                tvlist.append(tvs(x, y, wallsize, tv.get_rect(topleft = (x * wallsize, y * wallsize + 20))))
+                tvlist[-1].draw(tvlist[-1].rect)
             elif level[y][x] == 'P':
                 start = (x * wallsize + wallsize/2, y * wallsize + wallsize/2)
             elif level[y][x] == 'E':
@@ -170,8 +188,8 @@ while gameon == True:
         levelstart = True
 
 
-    for fish in walllist:
-        if characterrect.colliderect(fish.rect):
+    for i in walllist:
+        if characterrect.colliderect(i.rect):
             if direction == 'up':
                 y += 5
             if direction == 'left':
@@ -186,6 +204,11 @@ while gameon == True:
     if characterrect.colliderect(slurpfishrect):
         level += 1
         levelstart = False
+    
+    for i in tvlist:
+        if characterrect.colliderect(i.rect):
+            tvcounter += 1
+            break
 
     if collide == False:
         for event in pygame.event.get():
@@ -226,5 +249,6 @@ while gameon == True:
 
     draw_flopper(direction, (x, y))
     walllist = []
+    tvlist = []
 
     clock.tick(30)
