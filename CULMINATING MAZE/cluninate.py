@@ -8,6 +8,9 @@ pygame.display.set_caption("Escape of the Flopper")   # Set display caption
 background = pygame.image.load("background.png")    # Load background image
 background = pygame.transform.scale(background, (1000, 1000))   # Scale background image
 
+bert = pygame.image.load("bert.png")
+bert = pygame.transform.scale(bert, (600, 600))
+
 tv = pygame.image.load("tv.png")    # Load tv image
 
 wall = pygame.image.load("coral.png")    # Load wall image  
@@ -42,7 +45,7 @@ walllist = []   # Set walllist to empty list
 tvlist = [] # Set tvlist to empty list
 tvspawns = [1, 1]
 
-tvcountperlevel = [2, 3, 3]
+tvcountperlevel = [2, 3, 5]
 
 tvcounter = 0
 
@@ -105,11 +108,11 @@ level3 = [
 'XX    XX     X   XX ',
 '         X X X   X  ',
 ' XXXXXXXXX X X     XX',
-' XT    X   X   X X X',
+' X     X   X   X X X',
 'XX XXX XXXXXXX X X X ',
 '   X X   X       X   ',
 ' X X XXX XXX X XXX XX',
-' X X   X   X X   X   ',
+' XTX  TX   X X   X   ',
 ' XXX XXXXX XXXXXXXXX ',
 '   X X   X     X     ',
 'XX X X X XXX XXX X XX',
@@ -119,7 +122,7 @@ level3 = [
 ' XXXXX X X X XXX X X ',
 ' X     X X X X   X   ',
 ' XXXXXXX X X XXXXXXX ',
-' X   X     X X       ',
+' X   XT    X X       ',
 ' X X XXXXXXX X XXXXX ',
 '   X      EX   XT    '
 ]
@@ -171,6 +174,14 @@ def draw_flopper(direction, coordinates):
     display.blit(flopper, characterrect)
     pygame.display.update()
 
+def showscore(numtv, totaltv):
+
+    font = pygame.font.SysFont('Arial', 36)
+    text = font.render('I need more TVs!!! (' + str(numtv) + '/' + str(totaltv) + ')', True, (0, 0, 0))
+    display.blit(bert, (200, 200))
+    display.blit(text, (260, 300))
+    pygame.display.update()
+
 
 while gameon == True:
     walllist = []
@@ -215,8 +226,8 @@ while gameon == True:
         tvcounter = 0
         for i in range(tvcountperlevel[level - 1]):
             tvspawns.append(1)
-    #else:
-        #CREATE STATEMENT SAYING GET MORE TVS (ROBERT)
+    elif characterrect.colliderect(slurpfishrect) and tvcounter != len(tvlist):
+        showscore(tvcounter, len(tvlist))
     
     for i in tvlist:
         if characterrect.colliderect(i.rect):
@@ -249,18 +260,17 @@ while gameon == True:
                     d = False
 
         if w == True and y >= 1:
-            y -= 10
+            y -= 15/level
             direction = 'up'
         elif a == True and x >=1 :
-            x -= 10
+            x -= 15/level
             direction = 'left'
         elif s == True and y <= 999:
-            y += 10
+            y += 15/level
             direction = 'down'
         elif d == True and x <= 999:
-            x += 10
+            x += 15/level
             direction = 'right'
-
 
     draw_flopper(direction, (x, y))
 
