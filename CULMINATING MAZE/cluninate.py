@@ -256,11 +256,7 @@ while gameon == True:
         display.blit(background5, (0, 0))
         draw_level(level5)
     elif level == 6:
-        bert = pygame.image.load("bert.png")
-        bert = pygame.transform.scale(bert, (1000, 1000))
-
-        display.blit(bert, (0, 0))
-        
+        gameon = False
 
     if levelstart == False:
         x = start[0]
@@ -270,6 +266,7 @@ while gameon == True:
 
 
     for i in walllist:
+        break
         if characterrect.colliderect(i.rect):
             if direction == 'up':
                 y += 5
@@ -302,7 +299,7 @@ while gameon == True:
     if collide == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameon = False
+                pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     w = True
@@ -340,3 +337,22 @@ while gameon == True:
     pygame.display.update()
 
     clock.tick(30)
+
+
+for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+        pygame.quit()
+
+bert = pygame.image.load("bert.png")
+bert = pygame.transform.scale(bert, (1000, 1000))
+
+font = pygame.font.SysFont('Arial', 60)
+text = font.render('You won the game!!', True, (0, 0, 0))
+
+display.blit(bert, (0, 0))
+display.blit(text, (200, 200))
+pygame.display.update()
+
+time.sleep(10)
+
+pygame.quit()
