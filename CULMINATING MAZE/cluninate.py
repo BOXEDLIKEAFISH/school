@@ -5,8 +5,21 @@ pygame.init()   # Initialize pygame
 display = pygame.display.set_mode((1000, 1000))   # Set display size
 pygame.display.set_caption("Escape of the Flopper")   # Set display caption
 
-background = pygame.image.load("background.png")    # Load background image
-background = pygame.transform.scale(background, (1000, 1000))   # Scale background image
+background = pygame.image.load("background.png")
+background = pygame.transform.scale(background, (1000, 1000)) 
+
+background2 = pygame.image.load("background2.png")    
+background2 = pygame.transform.scale(background2, (1000, 1000))   
+
+background3 = pygame.image.load("background3.png")
+background3 = pygame.transform.scale(background3, (1000, 1000)) 
+
+background4 = pygame.image.load("background4.png")
+background4 = pygame.transform.scale(background4, (1000, 1000)) 
+
+background5 = pygame.image.load("background5.png")
+background5 = pygame.transform.scale(background5, (1000, 1000))
+
 
 bert = pygame.image.load("bert.png")
 bert = pygame.transform.scale(bert, (600, 600))
@@ -45,7 +58,7 @@ walllist = []   # Set walllist to empty list
 tvlist = [] # Set tvlist to empty list
 tvspawns = [1, 1]
 
-tvcountperlevel = [2, 3, 5]
+tvcountperlevel = [2, 3, 4, 4, 5, 0]
 
 tvcounter = 0
 
@@ -101,9 +114,52 @@ level2 = [
 'TXT    XE   '
 ]
 
-
-
 level3 = [
+'T    X       XP  ',
+'XXXX X XXXXX XXX ',
+'       X      TX ',
+' XXXXX XXXXXXX X ',
+'   X         X   ',
+' X X XXXXXXX XXXX',
+' X X       X     ',
+'XX XXX X X XXX X ',
+'   X   X XT  X X ',
+' XXXXXXX XXX X X ',
+' XEX   X     X X ',
+' X X X X XXX X XX',
+' X   X X X   X   ',
+' XXXXX X X XXXXX ',
+'  X    X       X ',
+'  X XXTXXXX       ',
+'  X  XXX X       ',
+'                 ',
+]
+
+level4 = [
+'   X   X    PX       ',
+' X X X X X XXX XXXXX ',
+' XTX X   X X   X   X ',
+' XXX X XXX X XXX X X ',
+'     X X   X X   XTX ',
+'XXXX X X XXX X XXXXX ',
+'     X X X   X X   X ',
+' X XXX X XXXXX X X X ',
+' X XT  X     X X X X ',
+' X XXXXXXXXX X X XXX ',
+' X         X X X X   ',
+' XXXXXXXXX X X X X XX',
+' X  EX     X     X   ',
+' X XXX XXXXXXXXX X X ',
+' X   X     X   X   X ',
+' XXX XXXXX X X XXXXX ',
+'   X     X   X X     ',
+'XX X XXX XXXXX XXX XX',
+'   X X X   X     X XT',
+' XXX X X XXX XXX X X ',
+'     X   X   X   X   '
+]
+
+level5 = [
 'T  X   X P   X X    ',
 'XX    XX     X   XX ',
 '         X X X   X  ',
@@ -136,11 +192,10 @@ def draw_level(level):
     global character 
     global slurpfish
     global tv
-    display.blit(background, (0, 0))
     wallsize = 1000/len(level)
     wall = pygame.transform.scale(wall, (wallsize, wallsize)) # Scale wall image
     character = pygame.transform.scale(character, (wallsize * 0.6, wallsize * 0.6))
-    slurpfish = pygame.transform.scale(slurpfish, (wallsize * 0.7, wallsize * 0.7))
+    slurpfish = pygame.transform.scale(slurpfish, (wallsize * 0.9, wallsize * 0.9))
     tv = pygame.transform.scale(tv, (wallsize, wallsize * 0.6))
     for y in range(len(level)):
         for x in range(len(level[y])):
@@ -192,12 +247,23 @@ while gameon == True:
         display.blit(background, (0, 0))
         draw_level(level1)
     elif level == 2:
-        display.blit(background, (0, 0))
+        display.blit(background2, (0, 0))
         draw_level(level2)
     elif level == 3:
-        display.blit(background, (0, 0))
+        display.blit(background3, (0, 0))
         draw_level(level3)
+    elif level == 4:
+        display.blit(background4, (0, 0))
+        draw_level(level4)
+    elif level == 5:
+        display.blit(background5, (0, 0))
+        draw_level(level5)
+    elif level == 6:
+        bert = pygame.image.load("bert.png")
+        bert = pygame.transform.scale(bert, (1000, 1000))
 
+        display.blit(bert, (0, 0))
+        
 
     if levelstart == False:
         x = start[0]
@@ -207,6 +273,7 @@ while gameon == True:
 
 
     for i in walllist:
+        break
         if characterrect.colliderect(i.rect):
             if direction == 'up':
                 y += 5
@@ -260,16 +327,16 @@ while gameon == True:
                     d = False
 
         if w == True and y >= 1:
-            y -= 15/level
+            y -= 30
             direction = 'up'
         elif a == True and x >=1 :
-            x -= 15/level
+            x -= 30
             direction = 'left'
         elif s == True and y <= 999:
-            y += 15/level
+            y += 30
             direction = 'down'
         elif d == True and x <= 999:
-            x += 15/level
+            x += 30
             direction = 'right'
 
     draw_flopper(direction, (x, y))
