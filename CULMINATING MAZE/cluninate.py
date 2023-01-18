@@ -212,7 +212,6 @@ def draw_level(level):
             elif level[y][x] == 'E':
                 slurpfishrect = slurpfish.get_rect(topleft = (x * wallsize, y * wallsize))
                 display.blit(slurpfish, slurpfishrect)
-    pygame.display.update()
 
 def draw_flopper(direction, coordinates):
     global characterrect
@@ -227,15 +226,13 @@ def draw_flopper(direction, coordinates):
         flopper = pygame.transform.rotate(character, 0)
     characterrect = character.get_rect(center = coordinates)
     display.blit(flopper, characterrect)
-    pygame.display.update()
 
 def showscore(numtv, totaltv):
 
-    font = pygame.font.SysFont('Arial', 36)
+    font = pygame.font.SysFont('Arial', 43)
     text = font.render('I need more TVs!!! (' + str(numtv) + '/' + str(totaltv) + ')', True, (0, 0, 0))
     display.blit(bert, (200, 200))
     display.blit(text, (260, 300))
-    pygame.display.update()
 
 
 while gameon == True:
@@ -273,7 +270,6 @@ while gameon == True:
 
 
     for i in walllist:
-        break
         if characterrect.colliderect(i.rect):
             if direction == 'up':
                 y += 5
@@ -340,5 +336,7 @@ while gameon == True:
             direction = 'right'
 
     draw_flopper(direction, (x, y))
+
+    pygame.display.update()
 
     clock.tick(30)
