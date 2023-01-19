@@ -240,7 +240,7 @@ def draw_flopper(direction, coordinates):   # draw character model
     display.blit(flopper, characterrect)    # draw character model
 
 def showscore(numtv, totaltv):  # show number of tvs collected
-    font = pygame.font.SysFont('Arial', 43) # set font
+    font = pygame.font.SysFont('Arial', 35) # set font
     text = font.render('I need more TVs!!! (' + str(numtv) + '/' + str(totaltv) + ')', True, (0, 0, 0)) # display message and number of tvs collected
     display.blit(bert, (200, 200))  # display bert picture
     display.blit(text, (260, 300))  # display text
@@ -276,6 +276,7 @@ while gameon == True:   # main game loop
         levelstart = True   # set levelstart boolean to true to signify the set up is done
 
     for i in walllist:  # for every wall
+        break
         if characterrect.colliderect(i.rect):   # if character is collided with the wall
             if direction == 'up':   # move in the opposite direction to go out of the wall
                 y += 5  
