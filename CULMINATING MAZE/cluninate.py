@@ -2,8 +2,12 @@ import pygame   # Import pygame
 import time    # Import time
 
 pygame.init()   # Initialize pygame
+pygame.mixer.init() # Initialize pygame mixer
 display = pygame.display.set_mode((1000, 1000))   # Set display size
-pygame.display.set_caption("Escape of the Flopper")   # Set display caption
+pygame.display.set_caption("Bert The TV Boss")   # Set display caption
+
+song = pygame.mixer.Sound('song.mp3')
+pygame.mixer.Sound.play(song)
 
 background = pygame.image.load("background.png")
 background = pygame.transform.scale(background, (1000, 1000)) 
@@ -242,7 +246,6 @@ while gameon == True:
     walllist = []
     tvlist = []
     collide = False
-
     if level == 1:
         display.blit(background, (0, 0))
         draw_level(level1)
@@ -259,10 +262,7 @@ while gameon == True:
         display.blit(background5, (0, 0))
         draw_level(level5)
     elif level == 6:
-        bert = pygame.image.load("bert.png")
-        bert = pygame.transform.scale(bert, (1000, 1000))
-
-        display.blit(bert, (0, 0))
+        gameon = False
         
 
     if levelstart == False:
@@ -306,7 +306,7 @@ while gameon == True:
     if collide == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameon = False
+                pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     w = True
@@ -327,18 +327,46 @@ while gameon == True:
                     d = False
 
         if w == True and y >= 1:
-            y -= 30
+            y -= 25/level
             direction = 'up'
         elif a == True and x >=1 :
-            x -= 30
+            x -= 25/level
             direction = 'left'
         elif s == True and y <= 999:
-            y += 30
+            y += 25/level
             direction = 'down'
         elif d == True and x <= 999:
-            x += 30
+            x += 25/level
             direction = 'right'
 
     draw_flopper(direction, (x, y))
 
     clock.tick(30)
+
+pygame.mixer.stop()
+
+endsong = pygame.mixer.Sound('endsong.mp3')
+pygame.mixer.Sound.play(endsong)
+
+bert = pygame.image.load("bert.png")
+bert = pygame.transform.scale(bert, (1000, 1000))
+
+font = pygame.font.SysFont('Arial', 70)
+text = font.render('You won the game!!' , True, (0, 0, 0))
+
+display.blit(bert, (0, 0))
+display.blit(text, (100, 170))
+pygame.display.update()
+
+time.sleep(5)
+
+nle = pygame.image.load("nlefloppa.png")
+nle = pygame.transform.scale(nle, (1000, 1000))
+
+display.blit(nle, (0, 0))
+pygame.display.update()
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
