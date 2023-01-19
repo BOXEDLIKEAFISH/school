@@ -276,7 +276,6 @@ while gameon == True:   # main game loop
         levelstart = True   # set levelstart boolean to true to signify the set up is done
 
     for i in walllist:  # for every wall
-        break
         if characterrect.colliderect(i.rect):   # if character is collided with the wall
             if direction == 'up':   # move in the opposite direction to go out of the wall
                 y += 5  
