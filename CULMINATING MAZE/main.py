@@ -384,16 +384,16 @@ while gameon == True:   # main game loop
                 elif event.key == pygame.K_d:   # if d key was released
                     d = False   # set 'd' boolean to false
 
-        if w == True and y >= 1:    # if moving up and not outside the map
+        if w == True and y >= 40//level:    # if moving up and not outside the map
             y -= 20//level  # move up 
             direction = 'up'    # set direction to up
-        elif a == True and x >=1 :  # if moving left and not outside the map
+        elif a == True and x >= 40//level :  # if moving left and not outside the map
             x -= 20//level  # move left
             direction = 'left'  # set direction to left
-        elif s == True and y <= 999:    # if moving down and not outside the map
+        elif s == True and y <= 1000 - 40//level:    # if moving down and not outside the map
             y += 20//level  # move down
             direction = 'down'  # set direction to down
-        elif d == True and x <= 999:    # if moving right and not outside the map
+        elif d == True and x <= 1000 - 40//level:    # if moving right and not outside the map
             x += 20//level  # move right
             direction = 'right' # set direction to right
 
