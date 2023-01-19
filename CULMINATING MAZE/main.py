@@ -9,6 +9,7 @@ import time    # import time
 
 pygame.init()   # initialize pygame
 pygame.mixer.init() # initialize pygame mixer
+
 display = pygame.display.set_mode((1000, 1000))   # set display size
 pygame.display.set_caption("Bert The TV Collector")   # set display caption
 
@@ -331,6 +332,7 @@ while gameon == True:   # main game loop
         levelstart = True   # set levelstart boolean to true to signify the set up is done
 
     for i in walllist:  # for every wall
+        break
         if characterrect.colliderect(i.rect):   # if character is collided with the wall
             if direction == 'up':   # move in the opposite direction to go out of the wall
                 y += 5  
