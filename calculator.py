@@ -12,9 +12,9 @@ grey =  '#2C3333'   #colour and font variables
 lightgrey = '#3F4E4F'
 inputfont = ('helvetica', 20, 'bold')
 
-mixer.init()   # initialize mixer
+mixer.init()   # initialize mixer 
 
-bert = mixer.Sound('bert.wav')  # load sound file
+bert = mixer.Sound('BertAudio.wav')  # load sound file
 
 def button_press(num):  # when button is pressed
   global calcinput  # make variable global
