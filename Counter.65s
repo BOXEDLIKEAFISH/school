@@ -1,6 +1,6 @@
 ; TEJ Summative Project
 ; Kris Kuo and Fiona Verzivolli
-; June 14, 2023
+; June 14, 2023 
 ; 2 digit stopwatch with stop and reset buttons
 ; Built on the NCS 2056T Educational Computer Kit + Edukit display board
 ; Display board decodes 4 bit inputs and displays the decimal value on seven segment displays
